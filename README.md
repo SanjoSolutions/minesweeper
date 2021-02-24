@@ -4,7 +4,7 @@ This work is devoted to God.
 
 ## Demo
 
-[Demo](https://sanjosolutions.github.io/minesweeper/)
+[Demo](https://sanjosolutions.github.io/minesweeper/index.html)
 
 ## Running tests
 
