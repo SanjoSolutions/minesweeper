@@ -46,6 +46,18 @@ export class Minesweeper {
   flagAsMine({ row, column }) {
     this.field.set({ row, column }, FLAGGED_AS_MINE)
   }
+
+  unflagAsMine({row, column}) {
+    this.field.set({ row, column }, undefined)
+  }
+
+  toggleFlagAsMine({row, column}) {
+    if (isFlaggedAsMine(this.field, {row, column})) {
+      this.unflagAsMine({row, column})
+    } else if (isUnrevealed(this, {row, column})) {
+      this.flagAsMine({row, column})
+    }
+  }
 }
 
 function isPositionOnField(minesweeper, { row, column }) {

@@ -13,6 +13,13 @@ export class Grid2D {
     this._values[this._calculateIndex({row, column})] = value
   }
 
+  calculatePosition(index) {
+    return {
+      row: Math.floor(index / this.width),
+      column: index % this.width
+    }
+  }
+
   _calculateIndex({row, column}) {
     return row * this.width + column
   }

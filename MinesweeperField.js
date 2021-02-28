@@ -19,24 +19,21 @@ const template = createTemplate(`
 `)
 
 export class MinesweeperField extends HTMLElement {
-  static get observedAttributes() {
-    return [
-      'height',
-      'width',
-    ]
-  }
-
   constructor() {
     super()
     this._minesweeper = null
     const templateContent = template.content
-    this._shadowRoot = this.attachShadow({ mode: 'closed' })
+    this._shadowRoot = this.attachShadow({ mode: 'open' })
     this._shadowRoot.appendChild(templateContent.cloneNode(true))
   }
 
   set minesweeper(value) {
     this._minesweeper = value
     this._update()
+  }
+
+  getCells() {
+    return Array.from(this._shadowRoot.querySelectorAll('minesweeper-cell'))
   }
 
   _update() {
@@ -58,10 +55,6 @@ export class MinesweeperField extends HTMLElement {
 
   _getField() {
     return this._shadowRoot.querySelector('.field')
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-
   }
 }
 

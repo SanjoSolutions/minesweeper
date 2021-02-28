@@ -154,6 +154,7 @@ export class MinesweeperCell extends HTMLElement {
       })
       cell.addEventListener('pointerup', () => {
         this._unfocus()
+        this.dispatchEvent(new Event('reveal'))
       })
       cell.addEventListener('pointerleave', () => {
         this._unfocus()
