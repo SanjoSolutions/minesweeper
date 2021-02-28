@@ -15,8 +15,8 @@ async function main() {
   printField(minesweeper._field)
 
   function render() {
-    const $output = document.querySelector('pre')
-    $output.textContent = fieldToString(minesweeper.field)
+    const $minesweeperField = document.querySelector('minesweeper-field')
+    $minesweeperField.minesweeper = minesweeper
   }
 
   render()
