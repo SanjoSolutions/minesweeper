@@ -1,27 +1,23 @@
+import { Grid } from './Grid.js'
+
 export class Grid2D {
   constructor({height, width}, values = null) {
     this.height = height
     this.width = width
-    this._values = values ?? new Array(height * width)
+    this._grid = new Grid([width, height], values)
   }
 
   get({row, column}) {
-    return this._values[this._calculateIndex({row, column})]
+    return this._grid.get([column, row])
   }
 
   set({row, column}, value) {
-    this._values[this._calculateIndex({row, column})] = value
+    this._grid.set([column, row], value)
   }
 
   calculatePosition(index) {
-    return {
-      row: Math.floor(index / this.width),
-      column: index % this.width
-    }
-  }
-
-  _calculateIndex({row, column}) {
-    return row * this.width + column
+    const [column, row] = this._grid.calculatePosition(index)
+    return {row, column}
   }
 
   * positions() {
@@ -33,10 +29,13 @@ export class Grid2D {
   }
 
   clone() {
-    const clone = new Grid2D({
-      height: this.height,
-      width: this.width
-    }, [...this._values])
+    const clone = new Grid2D(
+      {
+        height: this.height,
+        width: this.width
+      },
+      Array.from(this._grid.getValues())
+    )
     return clone
   }
 }
