@@ -71,12 +71,12 @@ const template = createTemplate(`
       }
       
       .cell--mine {
-      background-image: url("images/flower.png");
+      background-image: url("images/flower_blue.png");
         background-image: image-set(
-          "images/flower.png", 1x,
-          "images/flower@2x.png", 2x,
-          "images/flower@3x.png", 3x,
-          "images/flower@4x.png", 4x
+          "images/flower_blue.png", 1x,
+          "images/flower_blue@2x.png", 2x,
+          "images/flower_blue@3x.png", 3x,
+          "images/flower_blue@4x.png", 4x
         );
         background-size: 16px 16px;
         background-position: center center;
