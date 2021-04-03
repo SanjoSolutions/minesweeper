@@ -28,29 +28,59 @@ export class MinesweeperField extends HTMLElement {
   }
 
   set minesweeper(value) {
+    const justUpdate = Boolean(this._minesweeper)
     this._minesweeper = value
-    this._update()
+    this._update(justUpdate)
   }
 
   getCells() {
     return Array.from(this._shadowRoot.querySelectorAll('minesweeper-cell'))
   }
 
-  _update() {
+  _update(justUpdate) {
+    debugger
+    if (justUpdate) {
+      this._justUpdate()
+    } else {
+      this._renderInitially()
+    }
+  }
+
+  _justUpdate() {
+    const $field = this._getField()
+    const $cells = Array.from($field.children)
+    const field = this._minesweeper.field
+    let index = 0
+    for (const {row, column} of field.positions()) {
+      if (this._minesweeper.isRevealed({row, column})) {
+        const $cell = $cells[index]
+        if ($cell.getAttribute('revealed') !== 'true') {
+          this._revealCell($cell, {row, column})
+        }
+      }
+      index++
+    }
+  }
+
+  _renderInitially() {
     const $field = this._getField()
     const field = this._minesweeper.field
     $field.style.height = `${field.height * 16}px`
     $field.style.width = `${field.width * 16}px`
-    $field.innerHTML = ''
     for (const {row, column} of field.positions()) {
       const $cell = new MinesweeperCell()
-      $cell.setAttribute('value', field.get({row, column}))
-      $cell.setAttribute(
-        'revealed',
-        String(this._minesweeper.isRevealed({row, column}))
-      )
+      this._revealCell($cell, {row, column})
       $field.appendChild($cell)
     }
+  }
+
+  _revealCell($cell, {row, column}) {
+    const field = this._minesweeper.field
+    $cell.setAttribute('value', field.get({row, column}))
+    $cell.setAttribute(
+      'revealed',
+      String(this._minesweeper.isRevealed({row, column}))
+    )
   }
 
   _getField() {
