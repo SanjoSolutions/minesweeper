@@ -27,10 +27,14 @@ export class Minesweeper {
     this.field.set({ row, column }, value)
     if (value === 0) {
       let positions = [
+        { row: row - 1, column: column - 1 },
         { row: row - 1, column },
-        { row, column: column + 1 },
-        { row: row + 1, column },
+        { row: row - 1, column: column + 1 },
         { row, column: column - 1 },
+        { row, column: column + 1 },
+        { row: row + 1, column: column - 1 },
+        { row: row + 1, column },
+        { row: row + 1, column: column + 1 },
       ]
       positions = positions
         .filter(isPositionOnField.bind(null, this))
