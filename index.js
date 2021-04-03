@@ -6,9 +6,10 @@ import {
 import { solve } from './minesweeper_solver.js'
 
 async function main() {
-  const height = 24
-  const width = 30
-  const mines = 150
+  const minesToCellsRatio = 99 / (16 * 30)
+  const height = 100
+  const width = 100
+  const mines = (width * height) * minesToCellsRatio
 
   const minesweeper = new Minesweeper({height, width, mines})
 
