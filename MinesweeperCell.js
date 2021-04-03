@@ -12,7 +12,8 @@ const template = createTemplate(`
         box-sizing: border-box;
         width: 16px;
         height: 16px;
-        background-color: #c0c0c0;
+        color: white;
+        background-color: green;
         font-family: sans-serif;
         font-size: 12px;
         font-weight: bold;
@@ -32,8 +33,8 @@ const template = createTemplate(`
       
       .cell--unrevealed {
         border-top: 2px solid white;
-        border-right: 2px solid #808080;
-        border-bottom: 2px solid #808080;
+        border-right: 2px solid hsl(120deg 100% 0%);
+        border-bottom: 2px solid hsl(120deg 100% 0%);
         border-left: 2px solid white;
       }
       
@@ -56,12 +57,12 @@ const template = createTemplate(`
       }
       
       .cell--flagged {
-        background-image: url("images/flag.png");
+        background-image: url("images/flower.png");
         background-image: image-set(
-          "images/flag.png", 1x,
-          "images/flag@2x.png", 2x,
-          "images/flag@3x.png", 3x,
-          "images/flag@4x.png", 4x
+          "images/flower.png", 1x,
+          "images/flower@2x.png", 2x,
+          "images/flower@3x.png", 3x,
+          "images/flower@4x.png", 4x
         );
         background-size: 16px 16px;
         background-position: center center;
@@ -70,12 +71,12 @@ const template = createTemplate(`
       }
       
       .cell--mine {
-      background-image: url("images/mine.png");
+      background-image: url("images/flower.png");
         background-image: image-set(
-          "images/mine.png", 1x,
-          "images/mine@2x.png", 2x,
-          "images/mine@3x.png", 3x,
-          "images/mine@4x.png", 4x
+          "images/flower.png", 1x,
+          "images/flower@2x.png", 2x,
+          "images/flower@3x.png", 3x,
+          "images/flower@4x.png", 4x
         );
         background-size: 16px 16px;
         background-position: center center;
