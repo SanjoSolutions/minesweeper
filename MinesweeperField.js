@@ -38,7 +38,6 @@ export class MinesweeperField extends HTMLElement {
   }
 
   _update(justUpdate) {
-    debugger
     if (justUpdate) {
       this._justUpdate()
     } else {
