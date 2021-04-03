@@ -51,12 +51,8 @@ export class MinesweeperField extends HTMLElement {
     const field = this._minesweeper.field
     let index = 0
     for (const {row, column} of field.positions()) {
-      if (this._minesweeper.isRevealed({row, column})) {
-        const $cell = $cells[index]
-        if ($cell.getAttribute('revealed') !== 'true') {
-          this._revealCell($cell, {row, column})
-        }
-      }
+      const $cell = $cells[index]
+      this._updateCell($cell, {row, column})
       index++
     }
   }
@@ -68,12 +64,12 @@ export class MinesweeperField extends HTMLElement {
     $field.style.width = `${field.width * 16}px`
     for (const {row, column} of field.positions()) {
       const $cell = new MinesweeperCell()
-      this._revealCell($cell, {row, column})
+      this._updateCell($cell, {row, column})
       $field.appendChild($cell)
     }
   }
 
-  _revealCell($cell, {row, column}) {
+  _updateCell($cell, {row, column}) {
     const field = this._minesweeper.field
     $cell.setAttribute('value', field.get({row, column}))
     $cell.setAttribute(
