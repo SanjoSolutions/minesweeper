@@ -139,6 +139,20 @@ class PatternA extends Pattern {
     }
     return new PatternA(rotatedSpecification)
   }
+
+  mirrorOnVerticalAxis() {
+    const rotatedSpecification = new Grid2D({
+      height: this.specification.width,
+      width: this.specification.height,
+    })
+    for (const { row, column } of this.specification.positions()) {
+      rotatedSpecification.set(
+        { row: row, column: this.specification.width - 1 - column },
+        this.specification.get({ row, column }),
+      )
+    }
+    return new PatternA(rotatedSpecification)
+  }
 }
 
 export class AllRemainingUnrevealedNeighboursAreNumbersPattern extends Pattern {
@@ -203,12 +217,12 @@ const N = PatternA.isDeterminedAsNumber
 const M = PatternA.isDeterminedAsMine
 const O = PatternA.isEdgeOrEmptyOrNumber
 
-const patterns = concat([
+export const patterns = concat([
   [
     new AllRemainingUnrevealedNeighboursAreNumbersPattern(),
     new AllRemainingUnrevealedNeighboursAreMinesPattern(),
   ],
-  createPatternRotationVariations(
+  createPatternVariations(
     new PatternA(
       new Grid2D({ height: 3, width: 4 }, [
         O, O, O, O,
@@ -217,7 +231,7 @@ const patterns = concat([
       ]),
     ),
   ),
-  createPatternRotationVariations(
+  createPatternVariations(
     new PatternA(
       new Grid2D({ height: 3, width: 4 }, [
         O, O, O, O,
@@ -227,6 +241,11 @@ const patterns = concat([
     ),
   ),
 ])
+
+function createPatternVariations(pattern) {
+  return createPatternRotationVariations(pattern)
+    .concat(...createPatternRotationVariationsWithPatternMirroredOnVerticalAxis(pattern).map(createPatternRotationVariations))
+}
 
 function createPatternRotationVariations(pattern) {
   const pattern90 = pattern.rotate90()
@@ -238,6 +257,11 @@ function createPatternRotationVariations(pattern) {
     pattern180,
     pattern270,
   ]
+}
+
+function createPatternRotationVariationsWithPatternMirroredOnVerticalAxis(pattern) {
+  const mirroredPattern = pattern.mirrorOnVerticalAxis()
+  return createPatternRotationVariations(mirroredPattern)
 }
 
 function concat(arrays) {
